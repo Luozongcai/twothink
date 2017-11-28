@@ -1,0 +1,89 @@
+{extend name="public/base" /}
+
+
+
+
+{block name="body"}
+<div class="main-title">
+	<h2>
+		{$info['id']?'编辑':'新增'}报修
+		{notempty name="pid">
+		[&nbsp;父导航：<a href="{:url('index','pid='.$pid)}">{$parent.title}</a>&nbsp;]
+		{/notempty}
+	</h2>
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/date/js/jquery.js"></script>
+<script  src="__PUBLIC__/admin/date/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+    //时间选择
+    function selecttime(flag){
+        if(flag==1){
+            var endTime = $("#countTimeend").val();
+            if(endTime != ""){
+                WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',maxDate:endTime});
+            }else{
+                WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'});
+            }
+        }else{
+            var startTime = $("#countTimestart").val();
+            if(startTime != ""){
+                WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:startTime});
+            }else{
+                WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'});
+            }
+        }
+    }
+</script>
+<form action="{:url()}" method="post" class="form-horizontal">
+	<input type="hidden" name="pid" value="{$pid}">
+	<div class="form-item">
+		<label class="item-label">发布人<span class="check-tips"></span></label>
+		<div class="controls">
+			<input type="text" class="text input-large" name="username" value="{$info.username|default=''}">
+			<input type="hidden"  name="id" value="{$info.id|default=''}">
+		</div>
+	</div>
+	<div class="form-item">
+		<label class="item-label">标题<span class="check-tips"></span></label>
+		<div class="controls">
+			<input type="text" class="text input-large" name="title" value="{$info.title|default=''}">
+		</div>
+	</div>
+	<div class="form-item">
+		<label class="item-label">内容<span class="check-tips"></span></label>
+		<div class="controls">
+			<input type="text" class="text input-large" name="content" value="{$info.content|default=''}">
+		</div>
+	</div>
+	<div class="form-item">
+		<label class="item-label">开始时间<span class="check-tips"></span></label>
+		<div class="controls">
+			<input type="text" class="text input-large date" name="start_time"  id="countTimestart" onfocus="selecttime(1)"  size="17" readonly value="{$info.start_time|default=''}">
+		</div>
+	</div>
+	
+	<div class="form-item">
+		<label class="item-label">结束时间<span class="check-tips"></span></label>
+		<div class="controls">
+			<input type="text" class="text input-large date" name="end_time"id="countTimeend" onfocus="selecttime(2)" size="17"   readonly value="{$info.end_time|default=''}">
+		</div>
+	</div>
+
+	<div class="form-item">
+		<input type="hidden" name="id" value="{$info.id|default=''}">
+		<button class="btn submit-btn ajax-posts" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+		<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+	</div>
+</form>
+
+{/block}
+{block name="script"}
+<script type="text/javascript" charset="utf-8">
+    //导航高亮
+    highlight_subnav('{:url('index')}');
+
+//时间选择
+
+
+</script>
+{/block}

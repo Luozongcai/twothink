@@ -1,0 +1,234 @@
+{extend name="public/base" /}
+
+
+
+
+{block name="body"}
+<div class="main-title">
+	<h2>
+		{$info['id']?'编辑':'新增'}消息
+		{notempty name="pid">
+		[&nbsp;父导航：<a href="{:url('index','pid='.$pid)}">{$parent.title}</a>&nbsp;]
+		{/notempty}
+	</h2>
+</div>
+<script type="text/javascript" src="__PUBLIC__/admin/date/js/jquery.js"></script>
+<script  src="__PUBLIC__/admin/date/js/My97DatePicker/WdatePicker.js"></script>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+		"http://www.w3.org/TR/html4/loose.dtd">
+
+
+	<title>完整demo</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<script type="text/javascript" charset="utf-8" src="__PUBLIC__/ueditor/assets/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="__PUBLIC__/ueditor/assets/ueditor.all.js"> </script>
+	<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+	<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+	<script type="text/javascript" charset="utf-8" src="__PUBLIC__/ueditor/assets/lang/zh-cn/zh-cn.js"></script>
+
+	<style type="text/css">
+		div{
+			width:100%;
+		}
+	</style>
+
+<script type="text/javascript">
+    //时间选择
+    function selecttime(flag){
+        if(flag==1){
+            var endTime = $("#countTimeend").val();
+            if(endTime != ""){
+                WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',maxDate:endTime});
+            }else{
+                WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'});
+            }
+        }else{
+            var startTime = $("#countTimestart").val();
+            if(startTime != ""){
+                WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:startTime});
+            }else{
+                WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'});
+            }
+        }
+    }
+</script>
+<form action="{:url()}" method="post" class="form-horizontal">
+	<input type="hidden" name="pid" value="{$pid}">
+	<div class="form-item">
+		<label class="item-label">发布人<span class="check-tips"></span></label>
+		<div class="controls">
+			<input type="text" class="text input-large" name="username" value="{$info.username|default=''}">
+			<input type="hidden"  name="id" value="{$info.id|default=''}">
+		</div>
+	</div>
+	<div class="form-item">
+		<label class="item-label">标题<span class="check-tips"></span></label>
+		<div class="controls">
+			<input type="text" class="text input-large" name="title" value="{$info.title|default=''}">
+		</div>
+	</div>
+
+	<div class="form-item">
+		<label class="item-label">开始时间<span class="check-tips"></span></label>
+		<div class="controls">
+			<input type="text" class="text input-large date" name="start_time"  id="countTimestart" onfocus="selecttime(1)"  size="17" readonly value="{$info.start_time|default=''}">
+		</div>
+	</div>
+
+	<div class="form-item">
+		<label class="item-label">结束时间<span class="check-tips"></span></label>
+		<div class="controls">
+			<input type="text" class="text input-large date" name="end_time"id="countTimeend" onfocus="selecttime(2)" size="17"   readonly value="{$info.end_time|default=''}">
+		</div>
+	</div>
+<!-	<div class="form-item">
+		<label class="item-label">详细信息<span class="check-tips"></span></label>
+		<div class="">
+			<input type="hidden" class="content" id="content"  name="content" >
+		</div>
+	</div>
+	<script id="editor" type="text/plain" style="width:1024px;height:300px;"></script>
+
+	<div class="form-item">
+		<input type="hidden" name="id" value="{$info.id|default=''}">
+		<button class="btn submit-btn ajax-posts" id="submit" type="submit" onclick="getTitle()" target-form="form-horizontal">确 定</button>
+		<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+	</div>
+
+</form>
+
+{/block}
+{block name="script"}
+<script type="text/javascript" charset="utf-8">
+    //导航高亮
+    highlight_subnav('{:url('index')}');
+
+
+    var ue = UE.getEditor('editor');
+     $('.editor').change(function () {
+     var  content=UE.getEditor('editor').getContent();
+       $('.content').val(content);
+ });
+     function getTitle() {
+       var  content=UE.getEditor('editor').getContent();
+         $('.content').val(content);
+         //alert(content);
+     }
+    function isFocus(e){
+        alert(UE.getEditor('editor').isFocus());
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function setblur(e){
+
+        UE.getEditor('editor').blur();
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function insertHtml() {
+        var value = prompt('插入html代码', '');
+        UE.getEditor('editor').execCommand('insertHtml', value)
+    }
+    function createEditor() {
+        enableBtn();
+        UE.getEditor('editor');
+    }
+    function getAllHtml() {
+        alert(UE.getEditor('editor').getAllHtml())
+    }
+    function getContent() {
+        var arr = [];
+        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+        arr.push("内容为：");
+        arr.push(UE.getEditor('editor').getContent());
+        alert(arr.join("\n"));
+    }
+    function getPlainTxt() {
+        var arr = [];
+        arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
+        arr.push("内容为：");
+        arr.push(UE.getEditor('editor').getPlainTxt());
+        alert(arr.join('\n'))
+    }
+    function setContent(isAppendTo) {
+        var arr = [];
+        arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
+        UE.getEditor('editor').setContent('欢迎使用ueditor', isAppendTo);
+        alert(arr.join("\n"));
+    }
+    function setDisabled() {
+        UE.getEditor('editor').setDisabled('fullscreen');
+        disableBtn("enable");
+    }
+
+    function setEnabled() {
+        UE.getEditor('editor').setEnabled();
+        enableBtn();
+    }
+
+    function getText() {
+        //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
+        var range = UE.getEditor('editor').selection.getRange();
+        range.select();
+        var txt = UE.getEditor('editor').selection.getText();
+        alert(txt)
+    }
+
+    function getContentTxt() {
+        var arr = [];
+        arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
+        arr.push("编辑器的纯文本内容为：");
+        arr.push(UE.getEditor('editor').getContentTxt());
+        alert(arr.join("\n"));
+    }
+    function hasContent() {
+        var arr = [];
+        arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
+        arr.push("判断结果为：");
+        arr.push(UE.getEditor('editor').hasContents());
+        alert(arr.join("\n"));
+    }
+    function setFocus() {
+        UE.getEditor('editor').focus();
+    }
+    function deleteEditor() {
+        disableBtn();
+        UE.getEditor('editor').destroy();
+    }
+    function disableBtn(str) {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            if (btn.id == str) {
+                UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+            } else {
+                btn.setAttribute("disabled", "true");
+            }
+        }
+    }
+    function enableBtn() {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+        }
+    }
+
+    function getLocalData () {
+        alert(UE.getEditor('editor').execCommand( "getlocaldata" ));
+    }
+
+    function clearLocalData () {
+        UE.getEditor('editor').execCommand( "clearlocaldata" );
+        alert("已清空草稿箱")
+    }
+    function huocontent() {
+       /* editor.sync();
+        var content=UE.getEditor('editor').getContent();*/
+       var arr=[];
+        arr.push(UE.getEditor('editor').getContent());
+        //alert(arr.join("\n"));
+       // content=  $("#contents").val();
+        $('content').val(arr.join("\n"))
+    }
+
+	</script>
+{/block}
