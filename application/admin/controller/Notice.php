@@ -51,7 +51,7 @@ class Notice extends Admin
         foreach ($times as $v){
            $end=strtotime($v['end_time']);
            if ($end<time()){
-               \think\Db::name('notice')->where(['id'=>$v['id']])->delete();
+               Db::name('notice')->where(['id'=>$v['id']])->update(['status'=>3]);
            }
         }
 

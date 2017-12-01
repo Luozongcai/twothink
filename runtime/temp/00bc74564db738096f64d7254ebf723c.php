@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:71:"D:\www\twothink\public/../application/home/view/default/app\notice.html";i:1511876313;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:71:"D:\www\twothink\public/../application/home/view/default/app\notice.html";i:1512017939;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -32,19 +32,19 @@
                 <p class="navbar-text"><a href="<?php echo url('index/index'); ?>" class="navbar-link">首页</a></p>
             </div>
             <div class="col-xs-3">
-                <p class="navbar-text"><a href="#" class="navbar-link">服务</a></p>
+                <p class="navbar-text"><a href="<?php echo url('app/fuwu'); ?>" class="navbar-link">服务</a></p>
             </div>
             <div class="col-xs-3">
                 <p class="navbar-text"><a href="#" class="navbar-link">发现</a></p>
             </div>
             <div class="col-xs-3">
-                <p class="navbar-text"><a href="#" class="navbar-link">我的</a></p>
+                <p class="navbar-text"><a href="<?php echo url('app/my'); ?>" class="navbar-link">我的</a></p>
             </div>
         </div>
     </nav>
     <!--导航结束-->
 
-    <div class="container-fluid">
+    <div class="container-fluid" id="content_list">
         <?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$channel): $mod = ($i % 2 );++$i;?>
         <div class="row noticeList">
             <div class="col-xs-2">
@@ -53,16 +53,50 @@
             <div class="col-xs-10">
                 <p class="title"><a href="<?php echo url('noticeto?id='.$channel['id']); ?>"><?php echo $channel['title']; ?></a></p>
 
-                <p class="info">发布人: <?php echo $channel['username']; ?> &emsp;浏览: 199 <span class="pull-right"><?php echo $channel['start_time']; ?></span> </p>
+                 <p class="info">发布人: <?php echo $channel['username']; ?>&emsp;浏览: <?php echo $channel['click']; ?><span class="pull-right"><?php echo $channel['start_time']; ?></span> </p>
             </div>
+           <!-- <ul class="nav" style="margin-right:0">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-left:0;padding-right:0"><?php echo get_username(); ?> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<?php echo url('user/user/profile'); ?>">修改密码</a></li>
+                        <li><a href="<?php echo url('user/login/logout'); ?>">退出</a></li>
+                    </ul>
+                </li>
+            </ul>-->
         </div>
         <?php endforeach; endif; else: echo "" ;endif; ?>
 
     </div>
+    <div class="text-center">
+        <button type="button" class="btn btn-info ajax-page">获取更多信息</button>
+    </div>
 </div>
+
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="__PUBLIC__/home/home2/jquery-1.11.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="__PUBLIC__/home/home2/bootstrap/js/bootstrap.min.js"></script>
 </body>
+<script type="application/javascript">
+    var p = 1;
+    $(".ajax-page").click(function() {
+        //hasClass检查当前的元素是否含有某个特定的类，如果有，则返回true。
+        if($(this).hasClass('ajax-page')) {
+            p = p + 1;
+            var url = "<?php echo url('ajaxnotice'); ?>";
+            var that = this;
+            $.post(url, {p: p}, function (data) {
+                if (data) {
+                    //alert(data);
+                    $('#content_list').append(data);
+                } else {
+                    $('.ajax-page').html("没有跟多数据了！！").removeClass('ajax-page')
+                }
+            });
+        }
+    });
+</script>
+
 </html>

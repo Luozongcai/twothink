@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:74:"D:\www\twothink\public/../application/home/view/default/app\serviceto.html";i:1511876368;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:74:"D:\www\twothink\public/../application/home/view/default/app\serviceto.html";i:1511952478;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -49,6 +49,7 @@
         <h3 class="noticeDetailTitle"><strong><?php echo $list['title']; ?>通知</strong></h3>
         <div class="noticeDetailInfo">发布者:<span style="color: #7F007F"><?php echo $list['username']; ?></span></div>
         <div class="noticeDetailInfo">发布时间：<?php echo $list['start_time']; ?></div>
+        <div class="noticeDetailInfo">浏览: <?php echo $list['click']; ?>次</div>
         <div class="noticeDetailContent">
 
              <br/><br/><br/><br/>
@@ -57,7 +58,7 @@
     </div>
 
 </div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
 <script src="__PUBLIC__/home/home2/jquery-1.11.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="__PUBLIC__/home/home2/bootstrap/js/bootstrap.min.js"></script>

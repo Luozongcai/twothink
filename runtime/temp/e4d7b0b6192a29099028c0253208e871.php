@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:74:"D:\www\twothink\public/../application/admin/view/default/service\edit.html";i:1511872569;s:73:"D:\www\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:74:"D:\www\twothink\public/../application/admin/view/default/service\edit.html";i:1512026640;s:73:"D:\www\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -177,10 +177,11 @@
 		</div>
 	</div>
 <!-	<div class="form-item">
-		<label class="item-label">详细详细<span class="check-tips"></span></label>
+		<label class="item-label">详细信息<span class="check-tips"></span></label>
 			<input type="hidden" class="content" id="content"  name="content" >
-	</div>
-	<script id="editor" type="text/plain" style="width:1024px;height:300px;"></script>
+	<script id="editor" type="text/plain" style="width:1024px;height:300px;"><?php echo (isset($info['content']) && ($info['content'] !== '')?$info['content']:''); ?></script>
+
+    </div>
 
 	<div class="form-item">
 		<input type="hidden" name="id" value="<?php echo (isset($info['id']) && ($info['id'] !== '')?$info['id']:''); ?>">

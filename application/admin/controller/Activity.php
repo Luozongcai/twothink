@@ -50,7 +50,7 @@ class Activity extends Admin
         foreach ($times as $v){
             $end=strtotime($v['end_time']);
             if ($end<time()){
-                \think\Db::name('activity')->where(['id'=>$v['id']])->delete();
+                Db::name('activity')->where(['id'=>$v['id']])->update(['status'=>3]);
             }
         }
 
@@ -83,6 +83,7 @@ class Activity extends Admin
             $postdata = \think\Request::instance()->post();
             //var_dump($postdata);die;
             $Channel = \think\Db::name("activity");
+
             $data = $Channel->update($postdata);
             if($data !== false){
                 action_log('update_activity', 'activity', $id, UID);
@@ -132,6 +133,52 @@ class Activity extends Admin
             $this->success('发布成功！');
         }
     }
+
+
+    //修改前台关于我们的介绍
+    public function myedit($id = 0){
+        if($this->request->isPost()){
+            $postdata = \think\Request::instance()->post();
+            //var_dump($postdata);die;
+            $Channel = \think\Db::name("myplot");
+            $data = $Channel->update($postdata);
+            if($data !== false){
+                 $this->success('编辑成功', url('myindex'));
+
+            } else {
+                $this->error('编辑失败');
+            }
+        } else {
+
+            /* 获取数据 */
+            $info = \think\Db::name('myplot')->find($id);
+
+            if(false === $info){
+                $this->error('获取配置信息错误');
+            }
+
+            $pid = input('get.pid', 0);
+            //获取父导航
+            if(!empty($pid)){
+                $parent = \think\Db::name('myplot')->where(array('id'=>$pid))->find();
+                $this->assign('parent', $parent);
+            }
+
+            $this->assign('pid', $pid);
+            $this->assign('info', $info);
+            $this->meta_title = '编辑导航';
+            return $this->fetch('');
+        }
+    }
+    //展示关于我们
+    public function myindex(){
+        $pid = input('get.pid', 0);
+        $list=Db::name('myplot')->select();
+        $this->assign('pid', $pid);
+        $this->assign('list', $list);
+        return $this->fetch();
+    }
+
 
 
 

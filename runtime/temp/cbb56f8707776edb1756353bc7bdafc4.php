@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:73:"D:\www\twothink\public/../application/home/view/default/app\activity.html";i:1511876251;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:73:"D:\www\twothink\public/../application/home/view/default/app\activity.html";i:1511964513;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -38,13 +38,13 @@
                 <p class="navbar-text"><a href="#" class="navbar-link">发现</a></p>
             </div>
             <div class="col-xs-3">
-                <p class="navbar-text"><a href="#" class="navbar-link">我的</a></p>
+                <p class="navbar-text"><a href="<?php echo url('app/my'); ?>" class="navbar-link">我的</a></p>
             </div>
         </div>
     </nav>
     <!--导航结束-->
 
-    <div class="container-fluid">
+    <div class="container-fluid"  id="content_list">
         <h2>小区活动</h2>
         <?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$channel): $mod = ($i % 2 );++$i;?>
         <div class="row noticeList">
@@ -54,12 +54,15 @@
             <div class="col-xs-10">
                 <p class="title"><a href="<?php echo url('activityto?id='.$channel['id']); ?>"><?php echo $channel['title']; ?></a></p>
 
-                <p class="info">发布方/个人: <?php echo $channel['username']; ?> &emsp;浏览: 199 &emsp;<span class="pull-right"><?php echo $channel['start_time']; ?></span> </p>
+                <p class="info">发布方/个人: <?php echo $channel['username']; ?> &emsp;浏览: <?php echo $channel['click']; ?> &emsp;<span class="pull-right"><?php echo $channel['start_time']; ?></span> </p>
                 <p class="info">报名时间:<?php echo $channel['start_time']; ?>至<?php echo $channel['end_time']; ?> </p>
             </div>
         </div>
         <?php endforeach; endif; else: echo "" ;endif; ?>
 
+    </div>
+    <div class="text-center">
+        <button type="button" class="btn btn-info ajax-page">获取更多信息</button>
     </div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

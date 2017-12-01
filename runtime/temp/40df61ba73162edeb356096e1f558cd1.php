@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:73:"D:\www\twothink\public/../application/home/view/default/app\noticeto.html";i:1511869540;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:73:"D:\www\twothink\public/../application/home/view/default/app\noticeto.html";i:1511964513;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -38,7 +38,7 @@
                 <p class="navbar-text"><a href="#" class="navbar-link">发现</a></p>
             </div>
             <div class="col-xs-3">
-                <p class="navbar-text"><a href="#" class="navbar-link">我的</a></p>
+                <p class="navbar-text"><a href="<?php echo url('app/my'); ?>" class="navbar-link">我的</a></p>
             </div>
         </div>
     </nav>
@@ -49,6 +49,7 @@
         <h3 class="noticeDetailTitle"><strong><?php echo $list['title']; ?>通知</strong></h3>
         <div class="noticeDetailInfo">发布者:<span style="color: #7F007F"><?php echo $list['username']; ?></span>(小区物管)</div>
         <div class="noticeDetailInfo">发布时间：<?php echo $list['start_time']; ?></div>
+        <div class="noticeDetailInfo">浏览: <?php echo $list['click']; ?>次</div>
         <div class="noticeDetailContent">
 
              <br/><br/><br/><br/>

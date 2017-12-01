@@ -17,7 +17,9 @@ class Repairs extends Admin
     //列表
     public function index(){
         $pid = input('get.pid', 0);
-        $list=Db::name('repairs')->paginate(5);
+        $list=Db::name('repairs')->paginate(5,true);
+
+
         $this->assign('pid', $pid);
         $this->assign('list', $list);
         return $this->fetch();

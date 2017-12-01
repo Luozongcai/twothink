@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:73:"D:\www\twothink\public/../application/admin/view/default/notice\edit.html";i:1511873352;s:73:"D:\www\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:73:"D:\www\twothink\public/../application/admin/view/default/notice\edit.html";i:1512026640;s:73:"D:\www\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -181,8 +181,9 @@
 		<div class="">
 			<input type="hidden" class="content" id="content"  name="content" >
 		</div>
-	</div>
-	<script id="editor" type="text/plain" style="width:1024px;height:300px;"></script>
+	<script id="editor" type="text/plain" style="width:1024px;height:300px;"><?php echo (isset($info['content']) && ($info['content'] !== '')?$info['content']:''); ?></script>
+
+    </div>
 
 	<div class="form-item">
 		<input type="hidden" name="id" value="<?php echo (isset($info['id']) && ($info['id'] !== '')?$info['id']:''); ?>">

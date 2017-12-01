@@ -1,5 +1,5 @@
 /*******************************************
- * 自定义配色css文件放在defaut_color的同级目录,然后在 "系统/配置管理" 中为"COLOR_STYLE"增加一行配置项
+ * 自定义配色css文件放在default_color的同级目录,然后在 "系统/配置管理" 中为"COLOR_STYLE"增加一行配置项
  *********************************************/
 
 /********************************************
@@ -410,7 +410,7 @@ select {
 }
 #login-page .login-form .icon-login-user,
 #login-page .login-form .icon-login-pwd,
-.#login-page login-form .icon-login-verifycode {
+#login-page login-form .icon-login-verifycode {
     background: url("../images/icon24_login.png") no-repeat;
 }
 #login-page .login-form .icon-login-user {
@@ -448,7 +448,7 @@ select {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
 #login-page .logo-img {
-    background: url(../images/logo.png) no-repeat 0 center;
+    background: url('../images/logo.png') no-repeat 0 center;
 }
 
 #login-page .welcome{

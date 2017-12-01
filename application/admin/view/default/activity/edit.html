@@ -81,13 +81,15 @@
 			<input type="text" class="text input-large date" name="end_time"id="countTimeend" onfocus="selecttime(2)" size="17"   readonly value="{$info.end_time|default=''}">
 		</div>
 	</div>
-<!-	<div class="form-item">
+
+	<div class="form-item">
 		<label class="item-label">活动详细<span class="check-tips"></span></label>
-		<div class="">
+		<div class="controls">
 			<input type="hidden" class="content" id="content"  name="content" >
 		</div>
-	</div>
-	<script id="editor" type="text/plain" style="width:1024px;height:300px;"></script>
+		<script id="editor" type="text/plain" style="width:1024px;height:300px;">{$info.content|default=''}</script>
+
+     </div>
 
 	<div class="form-item">
 		<input type="hidden" name="id" value="{$info.id|default=''}">

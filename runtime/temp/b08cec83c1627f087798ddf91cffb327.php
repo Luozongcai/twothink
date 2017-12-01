@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:75:"D:\www\twothink\public/../application/admin/view/default/repairs\index.html";i:1511751280;s:73:"D:\www\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:75:"D:\www\twothink\public/../application/admin/view/default/repairs\index.html";i:1512010512;s:73:"D:\www\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -153,8 +153,14 @@
 
 
     </table>
-    <?php echo $list->render(); ?>
+    <div class="page">
+        <?php echo $list->render(); ?>
+    </div>
+   <!--<?php echo $list->render(); ?>-->
 
+
+
+</div>
 
 </div>
 

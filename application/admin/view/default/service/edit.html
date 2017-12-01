@@ -84,8 +84,9 @@
 <!-	<div class="form-item">
 		<label class="item-label">详细信息<span class="check-tips"></span></label>
 			<input type="hidden" class="content" id="content"  name="content" >
-	</div>
-	<script id="editor" type="text/plain" style="width:1024px;height:300px;"></script>
+	<script id="editor" type="text/plain" style="width:1024px;height:300px;">{$info.content|default=''}</script>
+
+    </div>
 
 	<div class="form-item">
 		<input type="hidden" name="id" value="{$info.id|default=''}">

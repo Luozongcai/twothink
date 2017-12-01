@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:75:"D:\www\twothink\public/../application/home/view/default/app\activityto.html";i:1511875072;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:75:"D:\www\twothink\public/../application/home/view/default/app\activityto.html";i:1511964513;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -38,7 +38,7 @@
                 <p class="navbar-text"><a href="#" class="navbar-link">发现</a></p>
             </div>
             <div class="col-xs-3">
-                <p class="navbar-text"><a href="#" class="navbar-link">我的</a></p>
+                <p class="navbar-text"><a href="<?php echo url('app/my'); ?>" class="navbar-link">我的</a></p>
             </div>
         </div>
     </nav>
@@ -48,7 +48,11 @@
         <div class="blank"></div>
         <h3 class="noticeDetailTitle"><strong><?php echo $list['title']; ?>活动</strong></h3>
         <div class="noticeDetailInfo">发布者:<span style="color: #7F007F"><?php echo $list['username']; ?></span></div>
-        <div class="noticeDetailInfo">报名时间：<?php echo $list['start_time']; ?>至<?php echo $list['end_time']; ?></div>
+        <div class="noticeDetailInfo">报名起始时间:<?php echo $list['start_time']; ?></div>
+        <div class="noticeDetailInfo">报名结束时间:<?php echo $list['end_time']; ?></div>
+        <div class="noticeDetailInfo">浏览: <?php echo $list['click']; ?>次</div>
+        <div class="noticeDetailInfo pull-right"><a class="ajax_ctivity confirm" data-id="<?php echo $list['title']; ?>" href=""><h4>申请参与活动</h4></a></div>
+
         <div class="noticeDetailContent">
 
              <br/><br/><br/><br/>
@@ -62,4 +66,31 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="__PUBLIC__/home/home2/bootstrap/js/bootstrap.min.js"></script>
 </body>
+<script>
+
+    $(".ajax_ctivity").click(function() {
+       // var url="<?php echo url('ajaxcome'); ?>";
+        if (confirm('确定要参加活动吗?')) {
+            var url = "<?php echo url('ajaxcome'); ?>";
+            var title = $(this).attr('data-id');
+            var that = this;
+            $.post(url, {title: title}, function (data) {
+                if (data == 'yes') {
+                    //报名成功
+                    alert('报名成功');
+                } else if(data == 'no') {
+                //报过名了
+                    alert('您已经报过名了');
+                }else if(data == 'login') {
+                    //没登录
+                        //$(this).attr( "href","<?php echo url('user/login/index'); ?>");
+                        alert('您还没有登录,不能报名!');
+
+                }
+            });
+        }
+
+    });
+
+</script>
 </html>

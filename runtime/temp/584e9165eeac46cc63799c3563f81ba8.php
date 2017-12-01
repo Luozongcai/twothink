@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:75:"D:\www\twothink\public/../application/admin/view/default/service\index.html";i:1511857484;s:73:"D:\www\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:75:"D:\www\twothink\public/../application/admin/view/default/service\index.html";i:1512010717;s:73:"D:\www\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -135,7 +135,7 @@
             <td><?php echo $channel['title']; ?></td>
             <td><?php echo $channel['start_time']; ?></td>
             <td><?php echo $channel['end_time']; ?></td>
-            <td><?php  $arr=[0=>'待发布',1=>'发布',2=>'禁用']; echo $arr[$channel['status']]; ?></td>
+            <td><?php  $arr=[0=>'待发布',1=>'发布',2=>'禁用',3=>'已过期']; echo $arr[$channel['status']]; ?></td>
             <td>
                 <a title="编辑" href="<?php echo url('edit?id='.$channel['id'].'&pid='.$pid); ?>">编辑</a>
                 <a title="处理" href="<?php echo url('status?id='.$channel['id'].'&pid='.$pid); ?>"><?php echo !empty($channel['status']) && $channel['status']==1?'禁用':'发布';; ?></a>
@@ -149,7 +149,9 @@
 
 
     </table>
-    <?php echo $list->render(); ?>
+    <div class="page">
+        <?php echo $list->render(); ?>
+    </div>
 
 
 </div>

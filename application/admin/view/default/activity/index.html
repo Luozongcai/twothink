@@ -38,9 +38,9 @@
             <td>{$channel.name}</td>
             <td>{$channel.title}</td>
 
-            <td><?=date('Y-m-d H:i',$channel['start_time'])?></td>
-            <td><?=date('Y-m-d H:i',$channel['end_time'])?></td>
-            <td><?=$channel['status']==0?'未发布':'发布';?></td>
+            <td>{$channel.start_time}</td>
+            <td>{$channel.end_time}</td>
+            <td><?php  $arr=[0=>'待发布',1=>'发布',2=>'禁用',3=>'已过期']; echo $arr[$channel['status']]; ?></td>
             <td>
                 <a title="编辑" href="{:url('edit?id='.$channel['id'].'&pid='.$pid)}">编辑</a>
                 <a title="处理" href="{:url('status?id='.$channel['id'].'&pid='.$pid)}">发布</a>
@@ -53,6 +53,9 @@
         {/notempty}
         </tbody>
     </table>
+    <div class="page">
+        {$list->render()}
+    </div>
 </div>
 {/block}
 
